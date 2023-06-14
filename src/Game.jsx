@@ -13,8 +13,7 @@ function Game() {
     if (winner) {
       return;
     }
-    const newHistory = [...history.slice(0, historyIndex), nextSquares];
-    newHistory.push(nextSquares);
+    const newHistory = [...history.slice(0, historyIndex + 1), nextSquares];
     setHistory(newHistory);
     setXIsNext(!xIsNext);
     setHistoryIndex(newHistory.length - 1);
@@ -27,13 +26,14 @@ function Game() {
       </div>
       <div className="game-info">
         <ol>
-          {history.map((item, index) => {
+          {history.map((index) => {
             return (
               <li key={`history-${index}`}>
                 <button
                   onClick={() => {
                     console.log(`Clicked button number ${index}`);
                     setHistoryIndex(index);
+                    setXIsNext(index % 2 === 0);
                   }}
                 >
                   Go to Play {index === 0 ? "start" : index}
